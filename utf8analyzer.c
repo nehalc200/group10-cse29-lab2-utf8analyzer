@@ -25,12 +25,20 @@ int main(int argc, char *argv[]) {
         
 	char* str = strdup(argv[1]);
 	
-	for (int i = 0; str[i] != '\0'; i++) {
+    
+
+    for (int i = 0; str[i] != '\0'; i++) {
         if (str[i] >= 'a' && str[i] <= 'z') {
             str[i] = str[i] - 'a' + 'A';
         }
     }
-    printf("Uppercased ASCII: %s.\n", str);
+    printf("Uppercased ASCII: %s\n", str);
+
+    int index2 = 0;
+    while(argv[1][index2] != 0){
+	index2++;
+    }
+    printf("Length in bytes: %d\n", index2); 
 
     int32_t count = 0;
     int i = 0;
@@ -62,5 +70,36 @@ int main(int argc, char *argv[]) {
         }
     }
     printf("\n");
+
+	int index3 = 0;
+	int current = 0;
+	int num[strlen(argv[1])];
+	while(argv[1][index3] != 0){
+		unsigned char byte = (unsigned char)argv[1][index3];
+		int i3 = 0;
+		if (byte <= 0x7F) {
+            		i3 = 1;  
+        	} else if ((byte & 0xE0) == 0xC0) {
+            		i3 = 2;  
+        	} else if ((byte & 0xF0) == 0xE0) {
+            		i3 = 3;  
+        	} else if ((byte & 0xF8) == 0xF0) {
+            		i3 = 4;  
+        	} else {
+            		i3 = 1;  
+        	}
+		index3 += i3;
+		num[current] = i3;
+		current++;
+	}
+
+	printf("Bytes per code point: ");
+	for (int i = 0; i < current; i++) {
+        	printf("%d ", num[i]);
+    	}
+    	printf("\n");
+
+
+
     return 0;
 }
