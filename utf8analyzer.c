@@ -11,7 +11,13 @@ int main(int argc, char *argv[]) {
     }
 
     // implement the UTF-8 analyzer here
-	int index1 = 0;
+	
+    	char scopy[strlen(argv[1])];
+	for (int i = 0; i < strlen(argv[1]); i++){
+		scopy[i] = argv[1][i];
+	}
+    
+    	int index1 = 0;
 	int j1 = 0;
 	while(argv[1][index1] != 0){
 		if (argv[1][index1] > 127 || argv[1][index1] < 0){
@@ -99,7 +105,31 @@ int main(int argc, char *argv[]) {
     	}
     	printf("\n");
 
-
+	int index4 = 0;
+	int current2 = 0;
+	while(argv[1][index4] != 0 && current2 < 6){
+		unsigned char byte = (unsigned char)argv[1][index4];
+		int i4 = 0;
+		if (byte <= 0x7F) {
+            		i4 = 1;  
+        	} else if ((byte & 0xE0) == 0xC0) {
+            		i4 = 2;  
+        	} else if ((byte & 0xF0) == 0xE0) {
+            		i4 = 3;  
+        	} else if ((byte & 0xF8) == 0xF0) {
+            		i4 = 4;  
+        	} else {
+            		i4 = 1;  
+        	}
+		index4 += i4;
+		current2++;
+	}
+	char str4[index4+1];
+	for (int i = 0; i < index4; i++){
+		str4[i] = scopy[i];
+	}
+	str4[index4] = 0;
+	printf("Subtring of the first 6 codepoints: %s\n", str4);
 
     return 0;
 }
