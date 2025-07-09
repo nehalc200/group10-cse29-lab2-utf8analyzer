@@ -28,7 +28,10 @@ int main(int argc, char *argv[]) {
 		index1++;
 	}
 	if (j1 == 0){ printf("Valid ASCII: %s\n", "true"); }
-    char *str = argv[1];
+        
+	char* str = strdup(argv[1]);
+	
+    
 
     for (int i = 0; str[i] != '\0'; i++) {
         if (str[i] >= 'a' && str[i] <= 'z') {
@@ -64,6 +67,15 @@ int main(int argc, char *argv[]) {
     }
    
     printf("Number of code points: %d\n", count);
+    printf("Code points as decimal numbers: ");
+    
+    for (int i = 0; argv[1][i] != '\0'; i++) {
+        printf("%d", (unsigned char)argv[1][i]);
+        if (argv[1][i + 1] != '\0') {  
+            printf(" ");
+        }
+    }
+    printf("\n");
 
 	int index3 = 0;
 	int current = 0;
@@ -86,6 +98,7 @@ int main(int argc, char *argv[]) {
 		num[current] = i3;
 		current++;
 	}
+
 	printf("Bytes per code point: ");
 	for (int i = 0; i < current; i++) {
         	printf("%d ", num[i]);
@@ -174,5 +187,8 @@ int main(int argc, char *argv[]) {
 
 
 
+	char numthree = argv[1][3];
+	numthree++;
+	printf("Next character of Codepoint at index 3: %c\n", numthree);
     return 0;
 }
