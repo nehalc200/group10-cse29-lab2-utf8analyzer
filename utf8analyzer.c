@@ -131,5 +131,8 @@ int main(int argc, char *argv[]) {
 	str4[index4] = 0;
 	printf("Subtring of the first 6 codepoints: %s\n", str4);
 
+	char numthree = argv[1][3];
+	numthree++;
+	printf("Next character of Codepoint at index 3: %c\n", numthree);
     return 0;
 }
