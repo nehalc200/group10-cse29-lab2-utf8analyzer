@@ -130,9 +130,22 @@ int main(int argc, char *argv[]) {
 	}
 	str4[index4] = 0;
 	printf("Subtring of the first 6 codepoints: %s\n", str4);
+	
+	int cp_index = 0;
+    int byte_index = 0;
 
-	char numthree = argv[1][3];
-	numthree++;
-	printf("Next character of Codepoint at index 3: %c\n", numthree);
+    while (argv[1][byte_index] != '\0' && cp_index < 3) {
+        unsigned char byte = (unsigned char)argv[1][byte_index];
+        if (byte <= 0x7F) byte_index += 1;
+        else if ((byte & 0xE0) == 0xC0) byte_index += 2;
+        else if ((byte & 0xF0) == 0xE0) byte_index += 3;
+        else if ((byte & 0xF8) == 0xF0) byte_index += 4;
+        else byte_index += 1;
+        cp_index++;
+    }
+
+    char next_char = argv[1][byte_index] + 1;
+
+    printf("Next character of Codepoint at index 3: %c\n", next_char);
     return 0;
 }
