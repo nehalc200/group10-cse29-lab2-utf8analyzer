@@ -11,7 +11,6 @@ int main(int argc, char *argv[]) {
     }
 
     // implement the UTF-8 analyzer here
-<<<<<<< HEAD
 	int index1 = 0;
 	int j1 = 0;
 	while(argv[1][index1] != 0){
@@ -23,10 +22,10 @@ int main(int argc, char *argv[]) {
 		index1++;
 	}
 	if (j1 == 0){ printf("Valid ASCII: %s\n", "true"); }
-=======
-    char *str = argv[1];
-
-    for (int i = 0; str[i] != '\0'; i++) {
+        
+	char* str = strdup(argv[1]);
+	
+	for (int i = 0; str[i] != '\0'; i++) {
         if (str[i] >= 'a' && str[i] <= 'z') {
             str[i] = str[i] - 'a' + 'A';
         }
@@ -54,7 +53,14 @@ int main(int argc, char *argv[]) {
     }
    
     printf("Number of code points: %d\n", count);
-
+    printf("Code points as decimal numbers: ");
+    
+    for (int i = 0; argv[1][i] != '\0'; i++) {
+        printf("%d", (unsigned char)argv[1][i]);
+        if (argv[1][i + 1] != '\0') {  
+            printf(" ");
+        }
+    }
+    printf("\n");
     return 0;
->>>>>>> bdd3588cf8140d4ad85c1eb1219795f8ea1767f6
 }
